@@ -24,6 +24,7 @@ export class GildedRose {
 
     this.items.forEach(item => {
       
+      //determine which category of good is process
       switch(item.name){
 
         case 'Aged Brie':
@@ -53,6 +54,7 @@ export class GildedRose {
     return this.items;
   }
 
+  //check classic things like quality max 50, sellIn not be negative 
   CheckStandarts(item:Item):Item{
     item.sellIn > 0 ? item.sellIn-- : item.sellIn = 0;
     if(item.quality < 0) item.quality = 0;
@@ -60,6 +62,7 @@ export class GildedRose {
     return item;
   }
 
+  //standart goods process
   ProcessStandart(item:Item):Item{
 
     if(item.sellIn == 0) item.quality--;
@@ -71,6 +74,7 @@ export class GildedRose {
     return item;
   }
 
+  //AgedBrie process
   ProcessAgedBrie(item:Item):Item{
 
     if(item.quality < 50) item.quality++;
@@ -80,6 +84,7 @@ export class GildedRose {
     return item;
   }
 
+  //Conjured process
   ProcessConjured(item:Item):Item{
 
     if(item.quality > 0) item.quality -= 2;
@@ -89,13 +94,18 @@ export class GildedRose {
     return item;
   }
 
+  //Sulfuras process
   ProcessSulfuras(item:Item):Item{
 
     item = this.CheckStandarts(item);
+    
+    //Sulfuras must be 80 no matter what
+    item.quality = 80;
 
     return item;
   }
 
+  //Backstage process
   ProcessBackstage(item:Item):Item{
 
     if(item.sellIn > 10 ) item.quality++;
